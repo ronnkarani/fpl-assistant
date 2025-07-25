@@ -48,15 +48,11 @@ a {
 }
 
 .stat-box {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 10px 15px;
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  margin-bottom: 30px;
+  position: relative;
+  z-index: 1;
 }
+
 
 .stat-box h3 {
   font-size: 1.1rem;
@@ -66,10 +62,15 @@ a {
 }
 
 .scroll-box {
+  max-height: 250px; /* adjust based on design */
   overflow-y: auto;
-  flex-grow: 1;
-  max-height: 110px;
+  padding: 10px;
+  margin-bottom: 20px;
+  z-index: 1;
+  background-color: #fff; /* optional for contrast */
+  position: relative;
 }
+
 
 .stat-box p {
   font-size: 0.9rem;

@@ -20,12 +20,19 @@ def home(request):
         {"position": 2, "team": "Arsenal", "played": 20, "points": 43},
         {"position": 3, "team": "Liverpool", "played": 20, "points": 41},
         {"position": 4, "team": "Aston Villa", "played": 20, "points": 38},
-        # ... add more if you want
+        {"position": 5, "team": "Tottenham", "played": 20, "points": 36},
+        {"position": 6, "team": "Man United", "played": 20, "points": 34},
+        {"position": 7, "team": "Brighton", "played": 20, "points": 32},
+        {"position": 8, "team": "Chelsea", "played": 20, "points": 30},
+        {"position": 9, "team": "West Ham", "played": 20, "points": 28},
+        {"position": 10, "team": "Newcastle", "played": 20, "points": 26},
+        {"position": 11, "team": "Wolves", "played": 20, "points": 25},
+        {"position": 12, "team": "Brentford", "played": 20, "points": 23},
+        # add more as needed...
     ]
 
     context = {
-        "league_table": league_table,
-        'fixtures': Paginator(fixtures, 5).get_page(request.GET.get('fixtures_page')),
+        "league_table": Paginator(league_table, 10).get_page(request.GET.get('table_page')),        'fixtures': Paginator(fixtures, 5).get_page(request.GET.get('fixtures_page')),
         'top_scorers': Paginator(top_scorers, 5).get_page(request.GET.get('scorers_page')),
         'top_assists': Paginator(top_assists, 5).get_page(request.GET.get('assists_page')),
         'injured_players': Paginator(injured_players, 5).get_page(request.GET.get('injuries_page')),
