@@ -1,0 +1,9 @@
+<div class="pagination">
+  {% if assists.has_previous %}
+    <a href="?assists_page={{ assists.previous_page_number }}">Prev</a>
+  {% endif %}
+  <span class="current">Page {{ assists.number }} of {{ assists.paginator.num_pages }}</span>
+  {% if assists.has_next %}
+    <a href="?assists_page={{ assists.next_page_number }}">Next</a>
+  {% endif %}
+</div>

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %}<title>⚽️ Stats</title>{% endblock %}
+
+{% block content %}
+
+  <h2>🏁 Top EPL Players - Fantasy Stats</h2>
+  <p style="font-weight: bold; font-style: italic;">Explore the top-performing players in the Fantasy Premier League based on their stats and performance.</p>
+
+  <!-- Filters -->
+
+  <div style="margin-bottom: 1rem;">
+    <label>Position:</label>
+    <select id="filter-position">
+      <option>All</option>
+      <option>Goalkeeper</option>
+      <option>Defender</option>
+      <option>Midfielder</option>
+      <option>Forward</option>
+    </select>
+
+    <label>Team:</label>
+    <select id="filter-team">
+      <option>All</option>
+      {% for player in players %}
+        <option>{{ player.team }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Max Price (£):</label>
+    <select id="filter-price">
+      <option value="">No Limit</option>
+      <option value="5">5.0</option>
+      <option value="7">7.0</option>
+      <option value="9">9.0</option>
+      <option value="11">11.0</option>
+      <option value="13">13.0</option>
+      <option value="15">15.0</option>
+    </select>
+  </div>
+
+  <table id="player-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Team</th>
+        <th>Position</th>
+        <th>Price (£)</th>
+        <th>Points</th>
+        <th>Form</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for player in players %}
+      <tr onclick="selectPlayer({{ player.id }}, {{ player.price|floatformat:1 }}, '{{ player.team }}', '{{ player.name }}', '{{ player.position }}')">
+
+        <td>{{ player.name }}</td>
+        <td>{{ player.team }}</td>
+        <td>{{ player.position }}</td>
+        <td>{{ player.price|floatformat:1 }}</td>
+        <td>{{ player.points }}</td>
+        <td>{{ player.form }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <!-- Pagination Controls -->
+<div class="pagination">
+  <span class="step-links">
+    {% if players.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ players.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ players.number }} of {{ players.paginator.num_pages }}
+    </span>
+
+    {% if players.has_next %}
+      <a href="?page={{ players.next_page_number }}">next</a>
+      <a href="?page={{ players.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+
+
+{% endblock %}

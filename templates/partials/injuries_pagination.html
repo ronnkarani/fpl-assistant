@@ -1,0 +1,9 @@
+<div class="pagination">
+  {% if injuries.has_previous %}
+    <a href="?injuries_page={{ injuries.previous_page_number }}">Prev</a>
+  {% endif %}
+  <span class="current">Page {{ injuries.number }} of {{ injuries.paginator.num_pages }}</span>
+  {% if injuries.has_next %}
+    <a href="?injuries_page={{ injuries.next_page_number }}">Next</a>
+  {% endif %}
+</div>

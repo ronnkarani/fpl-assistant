@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load fpl_extras %}
+{% block title %}<title>⚽️ Home</title>{% endblock %}
+
+{% block content %}
+<div class="home-wrapper">
+  <!-- Left Column (Wider): Existing Home Content -->
+  <div class="left-column">
+    <!-- Your existing hero sections -->
+    <section class="hero">
+      <img src="{% static 'images/epl.png' %}" alt="EPL Background" class="hero-bg">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h2>Make Smarter Fantasy Picks</h2>
+        <p style="font-weight: bold; font-style: italic;">Explore stats, trends, and team-building rules based on real Fantasy Premier League data.</p>
+        <a href="{% url 'my_squad' %}">View Squad</a>
+      </div>
+    </section>
+
+    <section class="hero">
+      <img src="{% static 'images/fantasy2.jpg' %}" alt="EPL Background" class="hero-bg">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h2>Latest Player Stats</h2>
+        <p style="font-weight: bold;">Explore the top-performing players in the Fantasy Premier League based on their stats and performance.</p>
+        <a href="{% url 'stats' %}">View Stats</a>
+      </div>
+    </section>
+
+    <section class="hero">
+      <img src="{% static 'images/epl2.png' %}" alt="EPL Background" class="hero-bg">
+      <div class="overlay"></div>
+      <div class="hero-content">
+        <h2>Underrated but Overperforming Players</h2>
+        <p style="font-weight: bold;">Explore the best value players who are performing above their price point. These players are budget-friendly options that can significantly boost your Fantasy Premier League team.</p>
+        <a href="{% url 'value_picks' %}">View Underrated</a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Right Column: Stats Boxes -->
+  <div class="right-column">
+    <!-- League Table Section -->
+<div class="stat-box">
+  <h3>League Table</h3>
+  <div class="scroll-box">
+    <table class="league-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>Played</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for team in league_table %}
+        <tr>
+          <td>{{ team.position }}</td>
+          <td>{{ team.team }}</td>
+          <td>{{ team.played }}</td>
+          <td>{{ team.points }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+    <div class="stat-box">
+  <h3>Fixtures</h3>
+  <div class="scroll-box">
+    {% for fixture in fixtures %}
+      <p>
+        <i>{{ fixture.team_h|team_name }}</i> vs <i>{{ fixture.team_a|team_name }}</i> - 
+        {{ fixture.kickoff_time|date:"D, M d H:i" }}
+      </p>
+    {% empty %}
+      <p>No upcoming fixtures.</p>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    {% if fixtures.has_previous %}
+      <a href="?fixtures_page={{ fixtures.previous_page_number }}">Prev</a>
+    {% endif %}
+    <span>Page {{ fixtures.number }} of {{ fixtures.paginator.num_pages }}</span>
+    {% if fixtures.has_next %}
+      <a href="?fixtures_page={{ fixtures.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</div>
+
+
+    <div class="stat-box">
+  <h3>Top Scorers</h3>
+  <div class="scroll-box">
+    {% for player in top_scorers %}
+      <p>{{ player.first_name }} {{ player.second_name }} - {{ player.goals_scored }} goals</p>
+    {% empty %}
+      <p>No top scorers data.</p>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    {% if top_scorers.has_previous %}
+      <a href="?scorers_page={{ top_scorers.previous_page_number }}">Prev</a>
+    {% endif %}
+    <span>Page {{ top_scorers.number }} of {{ top_scorers.paginator.num_pages }}</span>
+    {% if top_scorers.has_next %}
+      <a href="?scorers_page={{ top_scorers.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="stat-box">
+  <h3>Top Assists</h3>
+  <div class="scroll-box">
+    {% for player in top_assists %}
+      <p>{{ player.first_name }} {{ player.second_name }} - {{ player.assists }} assists</p>
+    {% empty %}
+      <p>No assist data.</p>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    {% if top_assists.has_previous %}
+      <a href="?assists_page={{ top_assists.previous_page_number }}">Prev</a>
+    {% endif %}
+    <span>Page {{ top_assists.number }} of {{ top_assists.paginator.num_pages }}</span>
+    {% if top_assists.has_next %}
+      <a href="?assists_page={{ top_assists.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</div>
+
+
+<div class="stat-box">
+  <h3>Injured / Doubtful Players</h3>
+  <div class="scroll-box">
+    {% for player in injured_players %}
+      <p>{{ player.first_name }} {{ player.second_name }} - 
+         {% if player.status == 'i' %}Injured{% elif player.status == 'd' %}Doubtful{% endif %}
+      </p>
+    {% empty %}
+      <p>No injuries reported.</p>
+    {% endfor %}
+  </div>
+  <div class="pagination">
+    {% if injured_players.has_previous %}
+      <a href="?injuries_page={{ injured_players.previous_page_number }}">Prev</a>
+    {% endif %}
+    <span>Page {{ injured_players.number }} of {{ injured_players.paginator.num_pages }}</span>
+    {% if injured_players.has_next %}
+      <a href="?injuries_page={{ injured_players.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</div>
+
+
+  </div>
+</div>
+{% endblock %}

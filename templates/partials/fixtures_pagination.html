@@ -1,0 +1,9 @@
+<div class="pagination">
+  {% if fixtures.has_previous %}
+    <a href="?fixtures_page={{ fixtures.previous_page_number }}">Prev</a>
+  {% endif %}
+  <span class="current">Page {{ fixtures.number }} of {{ fixtures.paginator.num_pages }}</span>
+  {% if fixtures.has_next %}
+    <a href="?fixtures_page={{ fixtures.next_page_number }}">Next</a>
+  {% endif %}
+</div>

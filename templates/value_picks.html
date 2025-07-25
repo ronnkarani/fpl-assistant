@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %}<title>⚽️ MVP</title>{% endblock %}
+
+{% block content %}
+
+<h2>💰 Value Picks: Cheap but Overperforming (MVP)</h2>
+<p style="font-weight: bold; font-style: italic;">
+Explore the best value players who are performing above their price point.These players are budget-friendly options that can significantly boost your Fantasy Premier League team. 
+</p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Team</th>
+      <th>Position</th>
+      <th>Price (£)</th>
+      <th>Total Points</th>
+      <th>Form</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for player in players %}
+    <tr>
+      <td>{{ player.name }}</td>
+        <td>{{ player.team }}</td>
+        <td>{{ player.position }}</td>
+        <td>{{ player.price|floatformat:1 }}</td>
+        <td>{{ player.points }}</td>
+        <td>{{ player.form }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<!-- Pagination Controls -->
+<div class="pagination">
+  <span class="step-links">
+    {% if players.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ players.previous_page_number }}">previous</a>
+    {% endif %}
+
+    <span class="current">
+      Page {{ players.number }} of {{ players.paginator.num_pages }}
+    </span>
+
+    {% if players.has_next %}
+      <a href="?page={{ players.next_page_number }}">next</a>
+      <a href="?page={{ players.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+
+
+{% endblock %}

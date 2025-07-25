@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %}<title>⚽️ Best 11</title>{% endblock %}
+
+{% block content %}
+    <section class="section">
+    <div class="container">
+        <h2>🔃 Predicted Best XI + 5 Subs</h2>
+        <p style="font-weight: bold; font-style: italic;">
+            Based on recent stats and next fixture difficulty, here is a list of proposed top performers for the upcoming Game Week. <br>
+            These players are expected to perform well based on their form and upcoming fixtures.
+        </p>
+        
+        <div class="team-grid">
+        {% for player in players %}
+            <div class="player-card {{ player.role }}">
+            <h4>{{ player.name }}</h4>
+            <p>{{ player.position }} | {{ player.team }}</p>
+            <p>Form: {{ player.form }} | Fixture: {{ player.next_opponent }}</p>
+            <p>Total Points: {{ player.total_points }}</p>
+            <p>Price: £{{ player.price|floatformat:1 }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    </section>
+{% endblock %}

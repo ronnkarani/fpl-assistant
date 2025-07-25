@@ -1,0 +1,9 @@
+<div class="pagination">
+  {% if scorers.has_previous %}
+    <a href="?scorers_page={{ scorers.previous_page_number }}">Prev</a>
+  {% endif %}
+  <span class="current">Page {{ scorers.number }} of {{ scorers.paginator.num_pages }}</span>
+  {% if scorers.has_next %}
+    <a href="?scorers_page={{ scorers.next_page_number }}">Next</a>
+  {% endif %}
+</div>

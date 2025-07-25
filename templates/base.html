@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+
+    <header>
+      <h1>⚽️ FPL Fantasy Assistant</h1>
+      <p style="font-weight: bold; font-style: italic;">Your Ultimate Fantasy Premier League Companion</p>
+      
+      {% block title %}<title>⚽️ Home</title>{% endblock %}
+      <nav class="navbar">
+        <div class="nav-left">
+          <a href=""{% url 'home' %}"" class="nav-logo">⚽️ Fantasy Assistant</a>
+        </div>
+        <div class="hamburger">&#9776;</div>
+        <div class="nav-right" id="navLinks">
+          <a href=""{% url 'home' %}"" class="nav-link">Home</a>
+          <div class="dropdown">
+            <a href="#" class="dropbtn">More &darr;</a>
+            <div class="dropdown-content">
+              <a href="{% url 'my_squad' %}">Squad</a>
+              <a href="{% url 'stats' %}">Player Stats</a>
+              <a href="{% url 'value_picks' %}">Underrated</a>
+              <a href="{% url 'best_xi' %}">Best XI</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        {% block content %}{% endblock %}
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 FPL Assistant. Developed with ❤️ by <a href="https://ronnkarani.netlify.app">Ronny Karani</a> from <a href="https://swftlabs.netlify.app">SWFT LABS</a></p>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+
+  </body>
+</html>
