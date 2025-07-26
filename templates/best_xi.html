@@ -3,25 +3,42 @@
     {% block title %}<title>⚽️ Best 11</title>{% endblock %}
 
 {% block content %}
+<h3>🟢 Starters</h3>
     <section class="section">
-    <div class="container">
-        <h2>🔃 Predicted Best XI + 5 Subs</h2>
+<h2>🔃 Predicted Best XI + 5 Subs</h2>
         <p style="font-weight: bold; font-style: italic;">
             Based on recent stats and next fixture difficulty, here is a list of proposed top performers for the upcoming Game Week. <br>
             These players are expected to perform well based on their form and upcoming fixtures.
         </p>
-        
-        <div class="team-grid">
-        {% for player in players %}
-            <div class="player-card {{ player.role }}">
-            <h4>{{ player.name }}</h4>
-            <p>{{ player.position }} | {{ player.team }}</p>
-            <p>Form: {{ player.form }} | Fixture: {{ player.next_opponent }}</p>
-            <p>Total Points: {{ player.total_points }}</p>
-            <p>Price: £{{ player.price|floatformat:1 }}</p>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
+<div class="team-grid">
+    
+  {% for player in players %}
+    {% if player.role == 'starter' %}
+      <div class="player-card {{ player.role }}">
+        <h4>{{ player.name }}</h4>
+        <p>{{ player.position }} | {{ player.team }}</p>
+        <p>Form: {{ player.form }} | Fixture: {{ player.next_opponent }}</p>
+        <p>Total Points: {{ player.total_points }}</p>
+        <p>Price: £{{ player.price|floatformat:1 }}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
+<h3>🪑 Substitutes</h3>
+<div class="team-grid">
+  {% for player in players %}
+    {% if player.role == 'sub' %}
+      <div class="player-card {{ player.role }}">
+        <h4>{{ player.name }}</h4>
+        <p>{{ player.position }} | {{ player.team }}</p>
+        <p>Form: {{ player.form }} | Fixture: {{ player.next_opponent }}</p>
+        <p>Total Points: {{ player.total_points }}</p>
+        <p>Price: £{{ player.price|floatformat:1 }}</p>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
+
     </section>
 {% endblock %}

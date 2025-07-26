@@ -140,9 +140,11 @@ def best_xi(request):
     selected = []
     counts = {"GKP": 0, "DEF": 0, "MID": 0, "FWD": 0}
     max_per_position = {"GKP": 2, "DEF": 5, "MID": 5, "FWD": 3}
-    max_players = 16
+    max_players = 15
     club_limit = {}
-    
+
+    starter_count = 11  # 👈 PLACE THIS BEFORE THE LOOP WHERE IT’S USED
+
     for p in sorted_players:
         position = ["GKP", "DEF", "MID", "FWD"][p["element_type"] - 1]
         if counts[position] >= max_per_position[position]:
@@ -160,11 +162,12 @@ def best_xi(request):
             "team": next(t["name"] for t in teams if t["id"] == p["team"]),
             "form": p["form"],
             "total_points": p["total_points"],
-            "price": p["now_cost"] / 10,  # Add this line
-            "role": "starter" if len(selected) < 11 else "sub"
+            "price": p["now_cost"] / 10,
+            "role": "starter" if len(selected) < starter_count else "sub"  # 👈 used here
         })
 
     return render(request, "best_xi.html", {"players": selected})
+
 
 
 '''def get_best_xi():
