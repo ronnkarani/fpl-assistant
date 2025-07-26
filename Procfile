@@ -1,1 +1,1 @@
-web: gunicorn eplfantasyfantasy.wsgi:application
+web: gunicorn eplfantasy.wsgi:application
